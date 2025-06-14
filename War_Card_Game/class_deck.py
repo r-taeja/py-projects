@@ -33,6 +33,12 @@ class Deck:
         """
         return f"The deck contains {self.cards}"
     
+    def remove_top_card(self):
+        """
+        Function to remove the top card
+        """
+        return self.cards.pop(0)
+
     #Adding card
     def add_cards(self, *cards):         #what about duplicates?
         """
@@ -84,3 +90,11 @@ if __name__ == "__main__":
 
     d = Deck(c1, c2, c3)
     print(d)
+
+    c = d.remove_top_card()
+    print(c)
+    print(d)
+
+    e = Deck()
+    e.add_cards(c)
+    print(e)
