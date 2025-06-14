@@ -85,6 +85,18 @@ def play_round(user_deck, comp_deck, round_no = 1):
     """
     Plays each round according to game logic.
     """
+    
+    #Base Case
+    if user_deck.count_deck() == 0 or comp_deck.count_deck() == 0:
+        if user_deck.count_deck() > comp_deck.count_deck():
+            print("The computer has no cards left to play. The game is thus over.")
+        
+        elif comp_deck.count_deck() > user_deck.count_deck():
+            print("You have no cards left to play. The game is thus over.")
+        
+        else:
+            print("Both parties have no cards left to play. The game is thus over.")
+
     while (user_deck.count_deck() > 0 and comp_deck.count_deck() > 0) :
         
         #Keeping track of the round number

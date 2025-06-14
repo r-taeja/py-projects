@@ -60,6 +60,9 @@ class Deck:
         """
         Returns the first (count) number of cards from the front of the list/top of the deck as a list.
         """
+        if count > len(self.cards):
+            raise ValueError("Not enough cards present in the deck to draw.")
+        
         drawn_cards = self.cards[:count]
         for card in drawn_cards:
             self.remove_card(card)
