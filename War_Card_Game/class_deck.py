@@ -47,12 +47,22 @@ class Deck:
         self.cards.extend(cards)
     
     #Removing card
-    def remove_card(self, *cards_set):      #*args for multiple cards? What about duplicates?
+    def remove_cards(self, *cards_set):       
+        # '*' accepts multiple arguments. But, giving a list as an argument is basically seen as one arument only. Doing for card in cards_set makes it see the entire list as one thing and doesn't access individual items of the list.
+        #So, we want this function to accept input in the form of both lists, and multiple cards.
+        #Removes only first occurence of the card if multiple same exist. To remove multiple, gotta provide list of them.
         """
-        Removes the specific card from the list of cards/deck.
+        Removes the specific cards/list of cards from the deck.
         """
-        for card in cards_set:
-            self.cards.remove(card)
+        for ele in cards_set:
+            #If it is a list, unpack and remove cards given in list.
+            if isinstance(ele, list):
+                for card in ele:
+                    self.cards.remove(card)
+            
+            #If given as individual cards, remove them directly.
+            else:
+                self.cards.remove(ele)
 
     #Counting the number of cards in the deck
     def count_deck(self):
@@ -62,16 +72,18 @@ class Deck:
         return len(self.cards)
     
     #Drawing cards from the deck
-    def draw_cards(self, count):             #How to deal alternate cards to players? What if more than two players?
+    def draw_cards(self, count : int):             #How to deal alternate cards to players? What if more than two players?
         """
         Returns the first (count) number of cards from the front of the list/top of the deck as a list.
         """
+        if not isinstance(count, int):
+            raise KeyError("Count must be an integer.")
+
         if count > len(self.cards):
             raise ValueError("Not enough cards present in the deck to draw.")
         
         drawn_cards = self.cards[:count]
-        for card in drawn_cards:
-            self.remove_card(card)
+        self.remove_cards(drawn_cards)
 
         return drawn_cards
     
@@ -84,17 +96,14 @@ class Deck:
 
 if __name__ == "__main__":
 
-    c1 = (2, "Clubs")
-    c2 = (3, "Clubs")
-    c3 = (2, "Clubs")
+    c1 = Card(2, "Clubs")
+    c2 = Card(3, "Clubs")
+    c3 = Card(4, "Clubs")
+    c4 = Card(5, "Clubs")
+    c5 = Card(6, "Clubs")
 
-    d = Deck(c1, c2, c3)
-    print(d)
+    p_deck = Deck(c1, c2, c3, c4, c5)
+    print(p_deck.show_cards())
 
-    c = d.remove_top_card()
-    print(c)
-    print(d)
-
-    e = Deck()
-    e.add_cards(c)
-    print(e)
+    drawn_cards = p_deck.draw_cards(3)
+    print(drawn_cards)
