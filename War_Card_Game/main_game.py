@@ -1,6 +1,6 @@
 from class_card import Card
 from class_deck import Deck
-from temp_game_logic2 import *
+from game_logic import *
 
 #Dealing cards to user and computer
 
